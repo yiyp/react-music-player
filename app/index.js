@@ -1,16 +1,23 @@
-/*var react = require('react');
-console.log(react.version);*/
-
-
-/*import React from 'react';
-import './index.less';*/
-
-
 import React from 'react';
 import { render } from 'react-dom';
-import Hello from './components/hello';
+import { AppContainer } from 'react-hot-loader';
+import Root from './root';
 
 render(
-	<Hello></Hello>,
+	<AppContainer>
+		<Root />
+	</AppContainer>,
 	document.getElementById('root')
-)
+);
+
+if (module.hot) {
+	module.hot.accept('./root', () => {
+		const NewRoot = require('./root').default;
+		render(
+			<AppContainer>
+				<NewRoot />
+			</AppContainer>,
+			document.getElementById('root')
+		)
+	})
+}
